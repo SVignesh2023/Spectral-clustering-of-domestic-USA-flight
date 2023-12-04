@@ -1,0 +1,7 @@
+Flask
+pandas
+numpy
+networkx
+scikit-fuzzy
+scikit-learn
+plotly

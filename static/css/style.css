@@ -1,0 +1,268 @@
+/* Basic reset for margin and padding */
+body, h1, h2, p, div {
+    margin: 0;
+    padding: 0;
+    color: #1E2761;
+}
+
+h1{
+    text-align: center;
+}
+
+h2{
+    text-align: center;
+    color: blueviolet;
+}
+
+#ani_text2{
+    text-align: center;
+}
+
+span{
+    color: red;
+}
+
+input[type="text"],select,option {
+    text-align: center;
+}
+
+.body_container{
+    box-sizing: border-box;
+    display: flex;
+    flex-direction: column;
+    background-color: #a9def8;
+    height: 100dvh;
+}
+
+.title_container {
+    box-sizing: border-box;
+    display: flex;
+    padding: 0.5em;
+    border: 3px green solid;
+    justify-content: center;
+}
+
+.parent_container {
+    box-sizing: border-box;
+    border-right: 3px green solid;
+    border-left: 3px green solid;
+    border-bottom: 3px green solid;
+    display: flex;
+    flex: 1;
+    flex-direction: row;
+}
+
+.form_container {
+    box-sizing: border-box;
+    display: flex;
+    flex-direction: column;
+    padding: 0.5em;
+    border-right: 3px green solid;
+    align-items: center;
+    justify-content: center;
+}
+
+.form_list{
+    list-style-type: none;
+    padding: 0;
+    font-weight: bold;
+}
+
+.form_row{
+    display: flex;
+    justify-content: flex-end;
+    padding-top: 0.5em;
+    padding-bottom: 0.5em;
+    font-weight: bold;
+}
+
+#sp_form_row{
+    padding-top: 1.5em;
+    padding-bottom: 0.5em;
+}
+
+#sp_form_column{
+    padding-top: 0.5em;
+}
+
+.form_row > label {
+    padding: .5em 1em .5em 0;
+    flex: 1;
+}
+
+.form_row > input {
+    flex: 2;
+    height: 2em;
+}
+
+.req_message{
+    color: red;
+    display: flex;
+    justify-content: flex-end;
+}
+
+#start_error, #end_error{
+    display: none;
+    position: absolute;
+    background-color: #4831D4;
+    color: #CCF381;
+    padding: 5px;
+    border-radius: 3px;
+    z-index: 1;
+}
+
+#qm_image1{
+    width:15px;
+    height:15px;
+    vertical-align: middle;
+}
+
+#ex_image1, #ex_image2{
+    visibility: hidden;
+    display: flex;
+    width:25px;
+    height:25px;
+    vertical-align: middle;
+}
+
+.form_column{
+    display: flex;
+    flex-direction: column;
+    padding-top: 0.5em;
+    padding-bottom: 0.5em;
+    font-weight: bold;
+}
+
+.form_column > label{
+    padding: .5em 1em .5em 0;
+    align-items: flex-start;
+}
+
+.form_column > select{
+    align-items: center;
+    padding-top: 0.5em;
+    padding-bottom: 0.5em;
+    height: 2.25em;
+}
+
+.form_button1{
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
+    font-weight: bold;
+}
+
+.form_button2{
+    display: flex;
+    flex-direction: row;
+    justify-content: space-evenly;
+    font-weight: bold;
+}
+
+.popuptext{
+    display: none;
+    position: absolute;
+    background-color: #4831D4;
+    color: #CCF381;
+    padding: 5px;
+    border-radius: 3px;
+    z-index: 1;
+}
+
+.results_container {
+    box-sizing: border-box;
+    display: flex;
+    flex: 1;
+    flex-direction: column;
+    justify-content: flex-end;
+}
+
+.animation_container{
+    box-sizing: border-box;
+    display: none;
+    flex: 1;
+    flex-direction: column;
+    padding: 0.5em;
+    align-items: center;
+    justify-content: center;
+    background-color: white;    
+}
+
+.image_container{
+    box-sizing: border-box;
+    display: flex;
+    flex: 1;
+    background-color: white;
+    justify-content: center;
+    align-items: center;
+}
+
+#plotlyGraph{
+    max-width: 100%;
+    max-height: 100%;
+}
+
+.evaluation_container{
+    box-sizing: border-box;
+    display: flex;
+    flex-direction: column;
+    border-top: 3px green solid;
+    padding: 0.5em;
+    justify-content: center;
+}
+
+#qm_image2{
+    position: absolute;
+    padding: 1em;
+    cursor: pointer;
+    width:25px;
+    height:25px;
+    bottom: 0;
+    right: 0;
+}
+
+#eval_info{
+    box-sizing: border-box;
+    border-color: 1px #FA255E solid;
+    display: none;
+    position: absolute;
+    background-color: rgba(0, 0, 0, 0.7);
+    background-color: #4831D4;
+    color: #CCF381;
+    padding: 5px;
+    border-radius: 10px;
+    z-index: 1;
+}
+
+#animation_item{
+    border: 16px solid #f3f3f3;
+    border-top: 16px solid blue;
+    border-radius: 50%;
+    width: 120px;
+    height: 120px;
+    animation: spin 2s linear infinite;
+}
+
+@keyframes spin {
+    0% { transform: rotate(0deg); }
+    100% { transform: rotate(360deg); }
+}
+
+#start_date, #end_date{
+    background-color: #FCF6F5;
+    font-weight: bold;
+}
+
+#top, #spectral_choice, #algorithm_choice, #num_clusters, #viewing, #submit_button, #reset_button{
+    cursor: pointer;
+    background-color: #FCF6F5;
+    font-weight: bold;
+}
+
+#start_date:hover, #end_date:hover, #top:hover, #spectral_choice:hover, #algorithm_choice:hover, #num_clusters:hover, #viewing:hover, #submit_button:hover, #reset_button:hover, #top:focus, #spectral_choice:focus, #algorithm_choice:focus, #num_clusters:focus, #viewing:focus{
+    background-color: #E2D1F9;
+}
+
+#submit_button:active, #reset_button:active{
+    background-color: yellow;
+}

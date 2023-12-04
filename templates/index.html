@@ -1,0 +1,123 @@
+<!DOCTYPE html>
+<html lang="en-GB">
+	<head>
+		<meta charset="UTF-8">
+		<meta name="author" content="Vignesh Shanmugasundaram">
+		<meta name=" description" content ="Spectral clustering of US flight dataset">
+		<meta name=" keywords" content ="HTML,HTML5,CSS,Javascript,Python,Flask">
+		<meta name="viewport" content="width=device-width, initial-scale=1">
+		<link rel="stylesheet" type="text/css" href="{{ url_for('static', filename= 'css/style.css') }}">
+        <link rel="icon" href="{{ url_for('static', filename= 'css/webpage_image.jpg') }}">
+		<title>Spectral clustering of US flight dataset</title>
+        <script src="https://cdn.plot.ly/plotly-latest.min.js"></script>
+        <script src="{{ url_for('static', filename= 'js/js_script.js') }}"></script>
+	</head>
+	<body>
+        <div class="body_container">
+            <div class="title_container">
+                <h1>SPECTRAL CLUSTERING OF US FLIGHT DATASET</h1>
+            </div>
+            <div class="parent_container">
+                <div class="form_container">
+                    <form id="formData" action="{{url_for('call_python_script')}}" method="post" onsubmit="return formValidation()">
+                        <h2 id="form_heading">USER FORM</h2>
+                        <ul class="form_list">
+                            <li>Select a date range (MM-YYYY) <img src="{{ url_for('static', filename= 'css/qm_image1.png') }}" onmouseover="popup(this,'show')" onmouseout="popup(this,'hide')" id="qm_image1" alt="Red question mark contained in bubble"><span class="popuptext" id="popuptext"></span> :</li>
+                            <li class="form_row" id="sp_form_row">
+                                <label for="start_date">From:</label>
+                                <input type="text" id="start_date" name="start_date" placeholder="01-1990"><span>*</span><img src="{{ url_for('static', filename= 'css/ex_image.png') }}" id="ex_image1" alt="Exclamation mark in red border triangle, which signifies an error"><span id="start_error"></span>
+                            </li>
+                            <li class="form_row" id="sp_form_row">
+                                <label for="end_date">To:</label>
+                                <input type="text" id="end_date" name="end_date" placeholder="12-2009"><span>*</span><img src="{{ url_for('static', filename= 'css/ex_image.png') }}" id="ex_image2" alt="Exclamation mark in red border triangle, which signifies an error"><span id="end_error"></span>
+                            </li>
+                            <li class="req_message"><i>Required fields are marked with an asterisk (*).</i></li>
+                            <li class="form_row">
+                                <label for="top">Select top % of busy airports:</label>
+                                <select name="top" id="top">
+                                    <option value="10">10%</option>
+                                    <option value="20">20%</option>
+                                    <option value="30" selected>30%</option>
+                                    <option value="40">40%</option>
+                                    <option value="50">50%</option>
+                                    <option value="60">60%</option>
+                                    <option value="70">70%</option>
+                                    <option value="80">80%</option>
+                                    <option value="90">90%</option>
+                                    <option value="100">100%</option>
+                                </select>
+                            </li>
+                            <li class="form_column">
+                                <label for="spectral_choice">Select type of spectral clustering algorithm:</label>
+                                <select name="spectral_choice" id="spectral_choice">
+                                    <option value="1a" selected>Vanilla (Shi and Malik (2000))</option>
+                                    <option value="2a">Variant (Ng, Jordan, and Weiss (2002))</option>
+                                </select>
+                            </li>
+                            <li class="form_column">
+                                <label for="algorithm_choice">Select a clustering algorithm:</label>
+                                <select name="algorithm_choice" id="algorithm_choice">
+                                    <option value="1b" selected>K-Means++</option>
+                                    <option value="2b">Agglomerative Hierarchical Clustering (AHC)</option>
+                                    <option value="3b">Fuzzy C-Means++</option>
+                                    <option value="4b">DBSCAN</option>
+                                    <option value="5b">Mean Shift</option>
+                                </select>
+                            </li>
+                            <li class="form_row">
+                                <label for="num_clusters">Select number of clusters (k):</label>
+                                <select name="num_clusters" id="num_clusters">
+                                    <option value="3c" selected>3</option>
+                                    <option value="4c">4</option>
+                                    <option value="5c">5</option>
+                                    <option value="6c">6</option>
+                                    <option value="7c">7</option>
+                                    <option value="8c">8</option>
+                                    <option value="9c">9</option>
+                                    <option value="10c">10</option>
+                                </select>
+                            </li><br>
+                            <li class="form_button1">
+                                <label for="viewing">Colorblind mode:</label>
+                                <input type="checkbox" name="viewing" id="viewing" value="Yes">
+                            </li><br>
+                            <li class="form_button2">
+                                <input type="submit" id="submit_button" value="Run!">
+                                <input type="reset" id="reset_button" onclick="resetErrors()">
+                            </li>
+                        </ul>
+                    </form>
+                </div>
+                <div class="results_container">
+                    <div class="animation_container" id="animation_container">
+                        <div name="animation_item" id="animation_item"></div><br>
+                        <h2 id="ani_text1" name="ani_text1">LOADING</h2><br>
+                        <p id="ani_text2" name="ani_text2"></p>
+                    </div>
+                    <div class="image_container" id="image_container">
+                        <div name="plotlyGraph" id="plotlyGraph"></div>
+                    </div>  
+                    <div class="evaluation_container" id="evaluation_container">
+                        <b>
+                            <p id="eval_text" name="eval_text">Submit the form to produce evaluation metrics!</p>
+                            <ul>
+                                <li id="sil_score" name="sil_score">Silhouette Score: -</li>
+                                <li id="ch_score" name="ch_score">Calinski-Harabasz Score: -</li>
+                                <li id="db_score" name="db_score">Davies Bouldin Score: -</li>
+                            </ul>
+                        </b>
+                        <img src="{{ url_for('static', filename= 'css/qm_image2.png') }}" id="qm_image2" onmouseover="evalInfo(this,'show')" onmouseleave="evalInfo(this,'hide')" alt="Yellow question mark contained in bubble">
+                        <dl id="eval_info">
+                            <dt>Silhouette Score</dt>
+                            <dd>Value lies between the range of [-1,1].<br> Good clustering is achieved if score is closer to '+1'.<br> The converse is true if value lies closer to '-1'.</dd>
+                            <dt>Calinski-Harabasz Score</dt>
+                            <dd> Has no bounds. Higher the score, better the quality of clustering.</dd>
+                            <dt>Davies Bouldin Score</dt>
+                            <dd>More the score lies closer to '0', better the quality of clustering.</dd>
+                        </dl>
+                    </div>            
+                </div>
+            </div>
+        </div>
+    </body>
+</html>
